@@ -1,9 +1,10 @@
 package com.pl.iwach.footbetmanager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Progression {
+public class Progression implements Serializable{
 	
 	private String druzyna;
 	private int poziom;

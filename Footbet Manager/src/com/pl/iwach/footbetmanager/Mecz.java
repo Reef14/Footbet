@@ -1,8 +1,9 @@
 package com.pl.iwach.footbetmanager;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Mecz {
+public class Mecz implements Serializable {
 
 	private String druzynaA, druzynaB;
 	private Date termin;
