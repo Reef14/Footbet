@@ -2,6 +2,7 @@ package com.pl.iwach.footbetmanager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Progression implements Serializable{
@@ -12,7 +13,14 @@ public class Progression implements Serializable{
 	private ArrayList<Mecz> mecz = new ArrayList<Mecz>();
 	private Boolean skonczone = false, obstawione = false;
 	
+
 	
+	public Date ustawTerminMeczu(int dzien, int miesiac, int rok, int godzina, int minuta)
+	{
+        Calendar cal = Calendar.getInstance();
+        cal.set(rok, miesiac-1, dzien, godzina, minuta, 0);
+        return cal.getTime();
+	}
 	
 	public Progression(String druzyna) {
 		super();
@@ -29,9 +37,9 @@ public class Progression implements Serializable{
 				+ ", obstawione=" + obstawione + "]";
 	}
 
-	public void dodajZaklad(double kurs, String przecinwik, boolean meczDomowy)
+	public void dodajZaklad(double kurs, String przecinwik, boolean meczDomowy, int dzien, int miesiac, int rok, int godzina, int minuta)
 	{
-		Date date = new Date();
+		Date date = ustawTerminMeczu(dzien, miesiac, rok, godzina, minuta);
 		Mecz nowyMecz;
 		
 		if (meczDomowy)
