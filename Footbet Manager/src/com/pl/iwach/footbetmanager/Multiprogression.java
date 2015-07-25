@@ -5,11 +5,47 @@ import java.io.*;
 
 public class Multiprogression implements Serializable {
 	
-	private double stanKonta, obrot, obrotProc, skonczoneZysk, aktualneWydatki, kapital;
-	private int aktywneProgresje, skonczoneProgresje;
+	private double stanKonta, obrot, obrotCel, obrotProc, skonczoneZysk = 0 , aktualneWydatki = 0, kapital;
+	private int aktywneProgresje = 0, skonczoneProgresje = 0;
 	private ArrayList<Progression> progresje = new ArrayList<Progression>();;
 	
 	
+	
+	
+	public Multiprogression(double kapital, double obrotCel) 
+	{
+		super();
+		this.obrotCel = obrotCel;
+		this.kapital = kapital;
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Multiprogression [stanKonta=" + stanKonta + ", obrot=" + obrot
+				+ ", obrotCel=" + obrotCel + ", obrotProc=" + obrotProc
+				+ ", skonczoneZysk=" + skonczoneZysk + ", aktualneWydatki="
+				+ aktualneWydatki + ", kapital=" + kapital
+				+ ", aktywneProgresje=" + aktywneProgresje
+				+ ", skonczoneProgresje=" + skonczoneProgresje  + "]";
+	}
+
+
+
+	public void odswiexWartosci()
+	{
+		for( int i = 0; i < progresje.size(); i++)
+		{
+			obrot += progresje.get(i).getWydatki();
+			if (progresje.get(i).getSkonczone()) {skonczoneZysk += progresje.get(i).getBilans();skonczoneProgresje++;} else {aktualneWydatki += progresje.get(i).getWydatki();aktywneProgresje++;}
+		}
+		
+		stanKonta = kapital - aktualneWydatki+ skonczoneZysk;
+		obrotProc = obrot / obrotCel * 100;
+		
+	}
+
 	public void saveMultiprogression()
 	{
 	      try

@@ -25,11 +25,21 @@ public class Main {
 		progresja2.dodajWynik(2, 1, 2);
 		progresja2.printBet();
 		
+		Progression progresja3 = new Progression("Widzew");
+		progresja3.dodajZaklad(3.2, "ŁKS", true, 1,5,2015,15,00);
+		progresja3.dodajWynik(1, 2, 1);
+		progresja3.dodajZaklad(3.5, "Lechia", false,1,5,2015,15,00);
+		progresja3.dodajWynik(2, 3, 2);
+		progresja3.printBet();
+		
 		ArrayList<Progression> progresje = new ArrayList<Progression>();
 		progresje.add(progresja);
 		progresje.add(progresja2);
-		Multiprogression multiprogresja = new Multiprogression();
+		progresje.add(progresja3);
+		Multiprogression multiprogresja = new Multiprogression(100,300);
 		multiprogresja.setProgresje(progresje);
+		multiprogresja.odswiexWartosci();
+		System.out.println(multiprogresja.toString());
 //		multiprogresja.saveMultiprogression();
 //		multiprogresja.loadMultiprogression();
 		
