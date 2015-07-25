@@ -2,6 +2,9 @@ package com.pl.iwach.footbetmanager;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 public class Main {
 
 	/**
@@ -42,6 +45,8 @@ public class Main {
 		System.out.println(multiprogresja.toString());
 //		multiprogresja.saveMultiprogression();
 //		multiprogresja.loadMultiprogression();
+		
+		new ViewPanels();
 		
 		
 
