@@ -2,16 +2,19 @@ package com.pl.iwach.footbetmanager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 class ViewPanels extends JFrame
 {
 
-	JPanel p1,p2;
+	JPanel p1,p2,p3,p4;
 	Dimension d;
+	Multiprogression multiprogresja;
 
-    public ViewPanels()
+    public ViewPanels(Multiprogression multiprogresja)
     {
-        createAndShowGUI();
+        this.multiprogresja = multiprogresja;
+    	createAndShowGUI();
     }
     
     
@@ -29,35 +32,36 @@ class ViewPanels extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         
+        p1=viewPanelStakeTable();
+        p2=viewPanelActiveProgressions();
+        p3=viewPanelFinishedProgressions();
+        
+        add(p1);
+        add(p2);
+        add(p3);
+        
+        setSize(1000,1000);
+        setVisible(true);    
+        pack();
+    
+    }
+    
+    public JPanel viewPanelStakeTable()
+    {
         // An empty panel with FlowLayout
-        p1=new JPanel();
-        
-        // Panel with custom layout
-        p2=new JPanel(new GridBagLayout());
-        
+        JPanel panel=new JPanel();
         // Set some preferred size
-        d=new Dimension(400,400);
-
-        p1.setPreferredSize(d);
-        p2.setPreferredSize(d);
-        
-        // Set some background
-        p1.setBackground(Color.GRAY);
-        p2.setBackground(Color.DARK_GRAY);
-
-        // Set some border
-        // Here a line border of 5 thickness, dark gray color and rounded
-        // edges
-        p1.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,5,true));
-        
+        d=new Dimension(500,500);
+        panel.setPreferredSize(d);
+        panel.setBackground(Color.GRAY);
+        panel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,5,true));
         // Set some tooltip text
-        p1.setToolTipText("Panel 1");
-        p2.setToolTipText("Panel 2");
+        panel.setToolTipText("Panel Stake Table");
         
         double kurs=3.2, stawkowanie=1.52, stawkaPoczatkowa=0.5, wydatki=0, zysk, yield;
-	    int poziom, maxPoziom=15;
+	    int poziom, maxPoziom=20;
 	    
-	    Object dane[][] = new Object[maxPoziom][6];
+	    Object dane[][] = new Object[maxPoziom][5];
 	    
 	    for (int i = 0; i < maxPoziom; i++) {
 	    	
@@ -69,23 +73,91 @@ class ViewPanels extends JFrame
 			dane[i][3]= dwaMiejsca((double) dane[i][1]*kurs - wydatki);
 			dane[i][4]= dwaMiejsca((double) dane[i][3] /wydatki *100);
 		}
-	    
-
-	    
+    
 	    Object columnNames[] = { "Poziom", "Stawka", "Wydatki", "Zysk", "Yield" };
 	    JTable table = new JTable(dane, columnNames);
-	    
-	    p1.add(table);
-        
-        // Add panels
-        add(p1);
-        add(p2);
-        
-        setSize(800,800);
-        setVisible(true);    
-        pack();
-        
-        
+	    JScrollPane scrollPane = new JScrollPane(table);
+	    //table.setFillsViewportHeight(true); 
+	    panel.add(scrollPane);
+	     return panel;
     }
     
+    public JPanel viewPanelFinishedProgressions()
+    {
+        // An empty panel with FlowLayout
+        JPanel panel=new JPanel();
+        // Set some preferred size
+        d=new Dimension(500,500);
+        panel.setPreferredSize(d);
+        panel.setBackground(Color.GRAY);
+        panel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,5,true));
+        // Set some tooltip text
+        panel.setToolTipText("Panel Finished Progressions");
+        
+	    
+	    int maxPoziom=multiprogresja.getSkonczoneProgresje();
+	    
+	    Object dane[][] = new Object[maxPoziom][5];
+	    
+	    ArrayList<Progression> tempProgresje = new ArrayList<Progression>();
+	    
+	    for (int i = 0; i < multiprogresja.getProgresje().size(); i++) 
+	    {
+	    	if (multiprogresja.getProgresje().get(i).getSkonczone()) { tempProgresje.add(multiprogresja.getProgresje().get(i));}			
+		}
+	    
+	    
+	    for (int i = 0; i < maxPoziom; i++) {
+			dane[i][0]=i+1;
+			dane[i][1]= tempProgresje.get(i).getDruzyna();
+			dane[i][2]=  tempProgresje.get(i).getPoziom();
+			dane[i][3]= dwaMiejsca(tempProgresje.get(i).getBilans());
+			dane[i][4]= dwaMiejsca(tempProgresje.get(i).getZwrot());
+		}
+    
+	    Object columnNames[] = { "Lp.", "Drużyna", "Poziom", "Zysk", "Yield" };
+	    JTable table = new JTable(dane, columnNames);
+	    JScrollPane scrollPane = new JScrollPane(table); 
+	    panel.add(scrollPane);
+	     return panel;
+    }
+
+    public JPanel viewPanelActiveProgressions()
+    {
+        // An empty panel with FlowLayout
+        JPanel panel=new JPanel();
+        // Set some preferred size
+        d=new Dimension(500,500);
+        panel.setPreferredSize(d);
+        panel.setBackground(Color.GRAY);
+        panel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,5,true));
+        // Set some tooltip text
+        panel.setToolTipText("Panel Active Progressions");
+        
+	    
+	    int maxPoziom=multiprogresja.getAktywneProgresje();
+	    
+	    Object dane[][] = new Object[maxPoziom][4];
+	    
+	    ArrayList<Progression> tempProgresje = new ArrayList<Progression>();
+	    
+	    for (int i = 0; i < multiprogresja.getProgresje().size(); i++) 
+	    {
+	    	if (!multiprogresja.getProgresje().get(i).getSkonczone()) { tempProgresje.add(multiprogresja.getProgresje().get(i));}			
+		}
+	    
+	    
+	    for (int i = 0; i < maxPoziom; i++) {
+			dane[i][0]=i+1;
+			dane[i][1]= tempProgresje.get(i).getDruzyna();
+			dane[i][2]=  tempProgresje.get(i).getPoziom();
+			dane[i][3]= dwaMiejsca(tempProgresje.get(i).getWydatki());
+		}
+    
+	    Object columnNames[] = { "Lp.", "Drużyna", "Poziom", "Wydatki"};
+	    JTable table = new JTable(dane, columnNames);
+	    JScrollPane scrollPane = new JScrollPane(table); 
+	    panel.add(scrollPane);
+	     return panel;
+    }
 }

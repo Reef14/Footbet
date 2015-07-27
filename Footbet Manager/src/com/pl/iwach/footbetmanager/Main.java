@@ -32,7 +32,7 @@ public class Main {
 		progresja3.dodajZaklad(3.2, "ŁKS", true, 1,5,2015,15,00);
 		progresja3.dodajWynik(1, 2, 1);
 		progresja3.dodajZaklad(3.5, "Lechia", false,1,5,2015,15,00);
-		progresja3.dodajWynik(2, 3, 2);
+		progresja3.dodajWynik(2, 3, 3);
 		progresja3.printBet();
 		
 		ArrayList<Progression> progresje = new ArrayList<Progression>();
@@ -46,7 +46,7 @@ public class Main {
 //		multiprogresja.saveMultiprogression();
 //		multiprogresja.loadMultiprogression();
 		
-		new ViewPanels();
+		new ViewPanels(multiprogresja);
 		
 		
 
