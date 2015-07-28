@@ -1,6 +1,7 @@
 package com.pl.iwach.footbetmanager;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -40,10 +41,49 @@ class ViewPanels extends JFrame
         add(p2);
         add(p3);
         
+       
         setSize(1000,1000);
         setVisible(true);    
         pack();
-    
+        
+        JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu menuPlik = new JMenu("Plik");
+		JMenuItem mntmZapisz = new JMenuItem("Zapisz");
+		JMenuItem mntmWczytaj = new JMenuItem("Wczytaj");
+		JMenuItem mntmWyjdz = new JMenuItem("Wyjdź");
+		
+		menuBar.add(menuPlik);
+		menuPlik.add(mntmZapisz);
+		menuPlik.add(mntmWczytaj);
+		menuPlik.add(mntmWyjdz);
+		
+		JMenu menuWidok = new JMenu("Widok");
+	    ButtonGroup widokInterfejsGrupa = new ButtonGroup();
+	    JRadioButtonMenuItem rbInterfejs1 = new JRadioButtonMenuItem("Interfejs 1", true);
+	    JRadioButtonMenuItem rbInterfejs2 = new JRadioButtonMenuItem("Interfejs 2");
+	    JRadioButtonMenuItem rbInterfejs3 = new JRadioButtonMenuItem("Interfejs 3");
+	    JRadioButtonMenuItem rbInterfejs4 = new JRadioButtonMenuItem("Interfejs 4");
+	    widokInterfejsGrupa.add(rbInterfejs1);
+	    widokInterfejsGrupa.add(rbInterfejs2);
+	    widokInterfejsGrupa.add(rbInterfejs3);
+	    widokInterfejsGrupa.add(rbInterfejs4);
+		
+		menuBar.add(menuWidok);
+	    menuWidok.add(rbInterfejs1);
+	    menuWidok.add(rbInterfejs2);
+	    menuWidok.add(rbInterfejs3);
+	    menuWidok.add(rbInterfejs4);
+
+		JMenu menuOpcje= new JMenu("Opcje");
+		JMenuItem mntmOpcjePreferencje = new JMenuItem("Preferencje");
+		JMenuItem mntmOpcjeOProgramie= new JMenuItem("O programie");
+		
+		
+		menuBar.add(menuOpcje);
+		menuOpcje.add(mntmOpcjePreferencje);
+		menuOpcje.add(mntmOpcjeOProgramie);
     }
     
     public JPanel viewPanelStakeTable()
