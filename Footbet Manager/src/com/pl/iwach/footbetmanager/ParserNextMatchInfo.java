@@ -24,23 +24,21 @@ public class ParserNextMatchInfo {
 	private Date termin;
 	int wskaznikMeczu=0;
 
-    public static void main(String[] args) {
-
-    	new ParserNextMatchInfo("http://pl.fcstats.com/klub,mecze,legia-warszawa,470.php");
-    }
-
     
     public ParserNextMatchInfo(String url){
         Document doc;
         try {
         	doc = Jsoup.connect(url).get();
-            
-        	
 
         	Elements home = doc.getElementsByClass("teamHomeName");
         	Elements away = doc.getElementsByClass("teamAwayName");
         	Elements wynik = doc.getElementsByClass("matchResult");
         	Elements data = doc.getElementsByClass("dateSeparator");
+        	
+        	for (int i = 0; i < away.size(); i++) {
+				if (wynik.get(i).text().length() > 2) wskaznikMeczu++;
+			}
+  
         	
         	druzynaA = home.get(wskaznikMeczu).text().replaceAll("[\\d()]", "").trim();
         	druzynaB = away.get(wskaznikMeczu).text().replaceAll("[\\d()]", "").trim();
@@ -48,7 +46,7 @@ public class ParserNextMatchInfo {
         	String[] parts = string.split("-");
         	termin = ustawTerminMeczu(Integer.parseInt(parts[2]), Integer.parseInt(parts[1]), Integer.parseInt(parts[0]));  
 
-
+        	
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,5 +97,13 @@ public class ParserNextMatchInfo {
 
 	public void setWskaznikMeczu(int wskaznikMeczu) {
 		this.wskaznikMeczu = wskaznikMeczu;
+	}
+
+
+	@Override
+	public String toString() {
+		return "ParserNextMatchInfo [druzynaA=" + druzynaA + ", druzynaB="
+				+ druzynaB + ", termin=" + termin + ", wskaznikMeczu="
+				+ wskaznikMeczu + "]";
 	}
 }

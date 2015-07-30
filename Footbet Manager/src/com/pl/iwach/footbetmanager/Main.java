@@ -40,6 +40,7 @@ public class Main {
 		progresja4.dodajWynik(1, 2, 3);
 		progresja4.dodajZaklad(3.5);
 		progresja4.dodajWynik(2, 4, 4);
+		progresja4.printBet();
 		
 		ArrayList<Progression> progresje = new ArrayList<Progression>();
 		progresje.add(progresja);
