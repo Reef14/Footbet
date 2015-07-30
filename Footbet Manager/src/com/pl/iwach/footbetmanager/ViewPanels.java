@@ -80,7 +80,6 @@ class ViewPanels extends JFrame
 		JMenuItem mntmOpcjePreferencje = new JMenuItem("Preferencje");
 		JMenuItem mntmOpcjeOProgramie= new JMenuItem("O programie");
 		
-		
 		menuBar.add(menuOpcje);
 		menuOpcje.add(mntmOpcjePreferencje);
 		menuOpcje.add(mntmOpcjeOProgramie);

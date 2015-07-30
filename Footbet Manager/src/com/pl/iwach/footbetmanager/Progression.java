@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Progression implements Serializable{
 	
-	private String druzyna;
+	private String druzyna, adresStronyKlubu;
 	private int poziom;
 	private double stawka, stawkaPoczatkowa = 0.5d, wydatki = 0.0d, bilans = 0.0d, zwrot = 0, stawkowanie = 1.52;
 	private ArrayList<Mecz> mecz = new ArrayList<Mecz>();
@@ -22,9 +22,22 @@ public class Progression implements Serializable{
         return cal.getTime();
 	}
 	
+	public Date ustawTerminMeczu(int dzien, int miesiac, int rok)
+	{
+        Calendar cal = Calendar.getInstance();
+        cal.set(rok, miesiac-1, dzien, 0, 0, 0);
+        return cal.getTime();
+	}
+	
 	public Progression(String druzyna) {
 		super();
 		this.druzyna = druzyna;
+	}
+	
+	public Progression(String druzyna, String adresStronyKlubu) {
+		super();
+		this.druzyna = druzyna;
+		this.adresStronyKlubu = adresStronyKlubu;
 	}
 	
 	@Override
@@ -54,11 +67,19 @@ public class Progression implements Serializable{
 		poziom = mecz.size();
 		stawka = stawkaPoczatkowa*Math.pow(stawkowanie,poziom-1);	
 		wydatki +=  stawka;
+	}
+	
+	public void dodajZaklad(double kurs)
+	{
 		
-		
-		
-
-
+		ParserNextMatchInfo parser = new ParserNextMatchInfo(adresStronyKlubu);
+		Date date = parser.getTermin();
+		Mecz nowyMecz;
+		nowyMecz = new Mecz(parser.getDruzynaA(), parser.getDruzynaB(), date, kurs);
+		mecz.add(nowyMecz);
+		poziom = mecz.size();
+		stawka = stawkaPoczatkowa*Math.pow(stawkowanie,poziom-1);	
+		wydatki +=  stawka;
 	}
 	
 	public void dodajWynik(int poziom, int goleDom, int goleWyjazd)
@@ -153,6 +174,14 @@ public class Progression implements Serializable{
 	}
 	public void setObstawione(Boolean obstawione) {
 		this.obstawione = obstawione;
+	}
+
+	public String getAdresStronyKlubu() {
+		return adresStronyKlubu;
+	}
+
+	public void setAdresStronyKlubu(String adresStronyKlubu) {
+		this.adresStronyKlubu = adresStronyKlubu;
 	}
 
 }

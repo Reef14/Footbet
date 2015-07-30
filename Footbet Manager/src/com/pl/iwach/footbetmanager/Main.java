@@ -35,10 +35,18 @@ public class Main {
 		progresja3.dodajWynik(2, 3, 3);
 		progresja3.printBet();
 		
+		Progression progresja4 = new Progression("Legia","http://fcstats.com/club,matches,legia-warszawa,470.php");
+		progresja4.dodajZaklad(4.2, "ŁKS", true, 1,5,2015,15,00);
+		progresja4.dodajWynik(1, 2, 3);
+		progresja4.dodajZaklad(3.5);
+		progresja4.dodajWynik(2, 4, 4);
+		
 		ArrayList<Progression> progresje = new ArrayList<Progression>();
 		progresje.add(progresja);
 		progresje.add(progresja2);
 		progresje.add(progresja3);
+		progresje.add(progresja4);
+		
 		Multiprogression multiprogresja = new Multiprogression(100,300);
 		multiprogresja.setProgresje(progresje);
 		multiprogresja.odswiexWartosci();
